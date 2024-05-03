@@ -1,0 +1,13 @@
+
+*.pyc
+big_buck_bunny_720p_5mb.mp4
+bot/bot.session-journal
+bot/bot.session
+/bot/files
+*.mp4
+*.session-journal
+*.session
+*.log
+*.js
+bot/t.py
+*.txt

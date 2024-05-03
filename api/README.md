@@ -3,7 +3,7 @@
 The Better TG Streamer API is a Cloudflare Workers deployable m3u8 stream API designed for the Better TG Streamer bot. It includes an embedded video player that supports streaming with multiple qualities, multiple audio tracks, and multiple subtitles. This API provides fast streaming directly from Telegram, enhancing the user experience with seamless video playback.
 
 **Demo**: [Stream API Homepage](https://stream.techzbots.co)  
-**Demo Video**: [Sample Streaming Video](https://stream.techzbots.co/embed/KUEBFRGUML/master_c1.m3u8)
+**Demo Video**: [Sample Streaming Video](https://stream.techzbots.co/embed/YZMPAIQBJX/master_c2.m3u8)
 
 ### Deploy to Cloudflare
 

@@ -3,7 +3,7 @@
 Enhance your streaming experience with the Better TG Streamer Bot. This powerful solution transforms MP4 and MKV files into smooth M3U8 HLS streams. It supports remote URL uploading from various hosts including FTP, Direct Links, Google Drive, OneDrive, and more, offering unlimited file uploads and permanent file links.
 
 **Demo Bot**: [BetterTGStreamerBot](https://telegram.me/BetterTGStreamerBot)  
-**Demo Video**: [Sample Streaming Video](https://stream.techzbots.co/embed/KUEBFRGUML/master_c1.m3u8)
+**Demo Video**: [Sample Streaming Video](https://stream.techzbots.co/embed/YZMPAIQBJX/master_c2.m3u8)
 
 ### Deploying Your Own
 

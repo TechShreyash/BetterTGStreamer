@@ -82,6 +82,18 @@
 
 ## FAQs / Useful Information
 
+**Detailed explanation of the bot commands and how they function**
+
+- **/convert** (replied to a file): When this command is issued, the bot downloads the specified file and uses ffmpeg to convert it into an M3U8 format with the original video and audio tracks. It then uploads the M3U8 and TS files to Telegram, storing the file IDs of each file in MongoDB.
+
+- **/encode** (replied to a file): After downloading the file you reply to, the bot uploads it to PlayerXstream. The PlayerXstream website then encodes the video into multiple qualities, along with handling multiple audio tracks and subtitles in M3U8 format. Once encoding is complete, the bot sends the PlayerXstream video link to the user.
+
+- **/remote video_link**: This command allows the bot to add a video link from a remote host directly to PlayerXstream, which then downloads and encodes the video. After encoding, the bot provides the newly encoded video link to the user.
+
+- **/convert playerx_video_link**: For this command, the bot downloads the M3U8, TS, and SRT files from PlayerXstream and uploads them to Telegram, with all corresponding file IDs saved to the database.
+
+- **/queue**: The bot operates on a queue system, adhering to maximum limits for total and per-user tasks (configurable in the settings). The /queue command displays details of the queue status, including the number of tasks queued and currently running, as well as the number of tasks added by the requesting user.
+
 **Why are multiple bot tokens added to UPLOADER_BOTS_1 and UPLOADER_BOTS_2?**
 
 - Utilizing multiple bot tokens helps distribute the workload across various bots, significantly reducing the chances of receiving floodwait errors from Telegram's API. These errors typically occur when a bot tries to upload or download a large number of .ts files within a short period.

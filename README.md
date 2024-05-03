@@ -10,13 +10,13 @@ Enhance your streaming experience with the Better TG Streamer Bot. This powerful
 To utilize this project effectively, you will need to deploy three separate applications that work together to handle different aspects of the streaming service:
 
 1. **BetterTGStreamerBot**: Manages user requests and file uploads.  
-   [Repository Link](https://github.com/TechShreyash/BetterTGStreamer)
+   [Repository Link](./bot)
 
 2. **BetterTGStreamerApi**: Streams the M3U8 files.  
-   [Repository Link](https://github.com/TechShreyash/BetterTGStreamer)
+   [Repository Link](./api)
 
 3. **BetterTGStreamerDBApi**: Handles data storage using MongoDB.  
-   [Repository Link](https://github.com/TechShreyash/BetterTGStreamer)
+   [Repository Link](./db)
 
 Each component is crucial for the full functionality of the streaming service, and detailed deployment instructions can be found in their respective repositories.
 

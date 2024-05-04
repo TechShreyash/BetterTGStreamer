@@ -9,15 +9,17 @@ The Better TG Streamer API is a Cloudflare Workers deployable m3u8 stream API de
 
 Follow these steps to deploy the Better TG Streamer API on Cloudflare Workers:
 
-1. **Install Wrangler CLI**: Download and install the Wrangler CLI tool from [Cloudflare's Developer Documentation](https://developers.cloudflare.com/workers/wrangler/install-and-update/).
+1. **Add Config Vars**: Add your config into [src/Config.ts](./src/Config.ts) Variables must same as used by the bot.
+   
+2. **Install Wrangler CLI**: Download and install the Wrangler CLI tool from [Cloudflare's Developer Documentation](https://developers.cloudflare.com/workers/wrangler/install-and-update/).
 
-2. **Login to Your Cloudflare Account**:  
+3. **Login to Your Cloudflare Account**:  
    Use the following command to log in to your Cloudflare account through Wrangler:
    ```bash
    wrangler login
    ```
 
-3. **Deploy to Cloudflare Workers**:  
+4. **Deploy to Cloudflare Workers**:  
    Once logged in, deploy your API to Cloudflare Workers using:
    ```bash
    wrangler deploy

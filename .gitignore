@@ -10,4 +10,3 @@ bot/bot.session
 *.log
 *.js
 bot/t.py
-*.txt

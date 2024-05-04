@@ -1,0 +1,11 @@
+motor
+pyrogram
+tgcrypto
+opencv-python
+aiohttp
+aiofiles
+Brotli
+m3u8
+js2py
+bs4
+playwright

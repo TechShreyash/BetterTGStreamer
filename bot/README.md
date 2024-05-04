@@ -78,6 +78,7 @@
 - **STORAGE_CHANNEL_2**: A secondary Telegram Channel ID used for storing additional m3u8 files.
 - **MAX_ACTIVE_TASKS**: The maximum number of tasks that can run simultaneously on the system.
 - **MAX_USER_CONCURRENT_TASKS**: The maximum number of concurrent tasks a single user can initiate.
+- **NO_OF_UPLOADERS**: The number of simultaneous uploaders to use per task for .ts file uploads. This setting determines how many upload threads are executed concurrently, optimizing the speed and efficiency of the upload process.
 - **SEGMENT_SIZE**: Specifies the size, in MB, of each segment uploaded to Telegram, ensuring it does not exceed platform limits.
 
 ## FAQs / Useful Information

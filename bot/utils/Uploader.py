@@ -3,7 +3,7 @@ from pyrogram import Client
 import asyncio
 from utils.Database import save_file
 from utils.Client import get_least_used_token_and_channel, remove_client
-from config import STORAGE_CHANNEL_1, STORAGE_CHANNEL_2
+from config import NO_OF_UPLOADERS, STORAGE_CHANNEL_1, STORAGE_CHANNEL_2
 from pyrogram.errors import FloodWait
 import aiohttp
 from utils.Downloader import get_file_bytes
@@ -157,7 +157,9 @@ async def Multi_TS_File_Uploader(session, data: list, proc: Message, hash: str):
     global UPLOAD_PROGRESS, ERR_CACHE
 
     total = len(data)
-    breaked_data = break_list(data, total // 10)  # break data into 10 parts
+    breaked_data = break_list(
+        data, total // NO_OF_UPLOADERS
+    )  # break data into 10 parts
 
     tasks = [asyncio.create_task(ProgressUpdater(proc, hash, total, "Video"))]
     for i in breaked_data:
@@ -194,7 +196,9 @@ async def Multi_TS_DL_And_Uploader(
     global UPLOAD_PROGRESS, ERR_CACHE
 
     total = len(file_list)
-    breaked_data = break_list(file_list, total // 10)  # break data into 10 parts
+    breaked_data = break_list(
+        file_list, total // NO_OF_UPLOADERS
+    )  # break data into 10 parts
 
     tasks = [asyncio.create_task(ProgressUpdater(proc, hash, len(file_list), name))]
     for i in breaked_data:

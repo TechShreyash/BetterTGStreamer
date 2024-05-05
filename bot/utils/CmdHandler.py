@@ -2,7 +2,6 @@ from pyrogram import Client
 from pyrogram.types import Message
 from typing import Literal
 from config import (
-    TEST_MODE,
     MAX_ACTIVE_TASKS,
     VIDEO_STORAGE,
     MAX_USER_CONCURRENT_TASKS,
@@ -48,11 +47,10 @@ async def check_file(
             )
 
         file_size = file.file_size
-        if not TEST_MODE:
-            if file_size < 5 * 1024 * 1024:  # 5MB
-                return await message.reply_text(
-                    "❌ **File Size Requirement:** Files must be larger than 5MB to be processed."
-                )
+        if file_size < 5 * 1024 * 1024:  # 5MB
+            return await message.reply_text(
+                "❌ **File Size Requirement:** Files must be larger than 5MB to be processed."
+            )
 
         if ACTIVE_USERS.count(message.from_user.id) >= MAX_USER_CONCURRENT_TASKS:
             return await message.reply_text(

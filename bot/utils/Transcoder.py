@@ -2,6 +2,7 @@ import asyncio, time
 import subprocess, os, cv2
 from config import SEGMENT_SIZE
 from utils.Logger import Logger
+import threading
 
 logger = Logger(__name__)
 
@@ -21,7 +22,28 @@ def get_byterate(file_path):
         raise Exception(f"Error in getting bitrate : {e}")
 
 
+TRANSCODE_CACHE = {}
+
+
+def run_command(command, hash):
+    global TRANSCODE_CACHE
+    try:
+        process = subprocess.Popen(
+            command, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        )
+        process.communicate()
+        if process.returncode != 0:
+            error = process.stderr.read().decode("utf-8")
+            raise Exception(f"Transcoding failed : {error}")
+        TRANSCODE_CACHE[hash] = (True, 0)
+    except Exception as e:
+        logger.error(f"Error in transcoding command : {e}")
+        TRANSCODE_CACHE[hash] = (False, e)
+
+
 async def transcode_video(input_file, output_file, hash, proc):
+    global TRANSCODE_CACHE
+
     await asyncio.sleep(5)
     logger.info(f"Transcoding {hash}")
     try:
@@ -72,37 +94,15 @@ async def transcode_video(input_file, output_file, hash, proc):
         ]
 
         # Execute the FFmpeg command
-        process = subprocess.Popen(
-            ffmpeg_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE
-        )
+        TRANSCODE_CACHE[hash] = (False, 0)
+        threading.Thread(target=run_command, args=(ffmpeg_cmd, hash)).start()
 
-        # Monitor progress
-        t1 = time.time()
+        # Wait for the process to complete
+        while not TRANSCODE_CACHE[hash][0]:
+            await asyncio.sleep(5)
 
-        while True:
-            line = process.stderr.readline().decode("utf-8")
-            if not line:
-                break
-
-            if "Opening" in line:
-                if ".ts" in line:
-                    t2 = time.time()
-                    if (t2 - t1) > 10:
-                        try:
-                            a = line.find("index")
-                            b = line.find(".ts")
-                            files_done = line[a + 5 : b]
-                            text = f"🧿 **Transcoding : {files_done} files generated**"
-                            await proc.edit(text)
-                            t1 = time.time()
-                        except Exception as e:
-                            logger.warning(e)
-
-        # Wait for the process to finish
-        process.communicate()
-        if process.returncode != 0:
-            error = process.stderr.read().decode("utf-8")
-            raise Exception(f"Transcoding failed : {error}")
+        if not TRANSCODE_CACHE[hash][0]:
+            raise Exception(TRANSCODE_CACHE[hash][1])
     except Exception as e:
         logger.error(f"Error in transcoder : {e}")
         return False, e

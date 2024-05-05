@@ -490,6 +490,9 @@ class PlayerxStream:
                 password_code = code
                 break
 
+        if (not encrypted_json) or (not password_code):
+            raise Exception("Failed to extract video data")
+
         cryptojs1, cryptojs2 = await self._get_crypto_files(session)
         video_code = await self._decrypt_js(
             cryptojs1, cryptojs2, encrypted_json, password_code

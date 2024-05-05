@@ -40,7 +40,7 @@ OWNER_ID = 1234567890
 WEBSITE_DOMAIN = "https://stream.mywebsite.com"
 
 # MongoDB Database URL
-MONGO_DB_URL = "mongodb+srv://database:pass@cluster0.gdsgfg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+MONGO_DB_URL = "YOUR_MONGODB_URL"
 
 # Playerx.stream Login details
 PLAYERX_EMAIL = "your_email@gmail.com"

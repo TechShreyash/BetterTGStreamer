@@ -1,4 +1,4 @@
-import { UPLOADER_BOTS_1, UPLOADER_BOTS_2, STORAGE_CHANNEL_1, STORAGE_CHANNEL_2 } from './config';
+import { UPLOADER_BOTS_1, UPLOADER_BOTS_2, STORAGE_CHANNEL_1, STORAGE_CHANNEL_2 } from './Config';
 
 
 function getBotToken(channel: number) {

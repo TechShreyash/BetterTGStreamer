@@ -82,12 +82,18 @@ async def playerxstream_updater():
         await context.add_cookies(cookies)
 
         while True:
-            await asyncio.sleep(30)
+            await asyncio.sleep(60)
             try:
-                await page.goto("https://www.playerx.stream/panel/videos/")
+                await page.goto(
+                    "https://www.playerx.stream/panel/videos/", timeout=60000
+                )
             except Exception as e:
                 logger.error(e)
+                await context.close()
                 await old_playerxstream_updater()
+                context = await browser.new_context(java_script_enabled=False)
+                page = await context.new_page()
+                await context.add_cookies(cookies)
                 continue
             try:
                 # get page html

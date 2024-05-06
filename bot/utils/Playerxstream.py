@@ -75,9 +75,35 @@ async def playerxstream_updater():
         COOKIES = text.strip(" ;")
         logger.info(f"Got Cookies: {COOKIES}")
 
-        await context.close()
+        await browser.close()
 
-        context = await browser.new_context(java_script_enabled=False)
+        browser = await p.chromium.launch(
+            args=[
+                "--disable-extensions",
+                "--disable-gpu",
+                "--no-sandbox",
+                "--disable-software-rasterizer",
+                "--disable-dev-shm-usage",
+                "--disable-background-networking",
+                "--disable-background-timer-throttling",
+                "--disable-breakpad",
+                "--disable-client-side-phishing-detection",
+                "--disable-default-apps",
+                "--disable-hang-monitor",
+                "--disable-popup-blocking",
+                "--disable-prompt-on-repost",
+                "--disable-renderer-backgrounding",
+                "--disable-sync",
+                "--metrics-recording-only",
+                "--no-first-run",
+                "--no-default-browser-check",
+                "--enable-automation",
+                "--password-store=basic",
+                "--use-mock-keychain",
+            ]
+        )
+
+        context = await browser.new_context(java_script_enabled=False, bypass_csp=True)
         page = await context.new_page()
         await context.add_cookies(cookies)
 
@@ -89,9 +115,37 @@ async def playerxstream_updater():
                 )
             except Exception as e:
                 logger.error(e)
-                await context.close()
+                await browser.close()
                 await old_playerxstream_updater()
-                context = await browser.new_context(java_script_enabled=False)
+                logger.info("Restarting Browser")
+                browser = await p.chromium.launch(
+                    args=[
+                        "--disable-extensions",
+                        "--disable-gpu",
+                        "--no-sandbox",
+                        "--disable-software-rasterizer",
+                        "--disable-dev-shm-usage",
+                        "--disable-background-networking",
+                        "--disable-background-timer-throttling",
+                        "--disable-breakpad",
+                        "--disable-client-side-phishing-detection",
+                        "--disable-default-apps",
+                        "--disable-hang-monitor",
+                        "--disable-popup-blocking",
+                        "--disable-prompt-on-repost",
+                        "--disable-renderer-backgrounding",
+                        "--disable-sync",
+                        "--metrics-recording-only",
+                        "--no-first-run",
+                        "--no-default-browser-check",
+                        "--enable-automation",
+                        "--password-store=basic",
+                        "--use-mock-keychain",
+                    ]
+                )
+                context = await browser.new_context(
+                    java_script_enabled=False, bypass_csp=True
+                )
                 page = await context.new_page()
                 await context.add_cookies(cookies)
                 continue

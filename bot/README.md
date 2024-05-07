@@ -64,9 +64,9 @@
 
 ### Bot Token Variables
 
-- **MAIN_BOT_TOKEN**: Manages user commands and interactions.
-- **LOGGER_BOT_TOKEN**: Sends log updates to `LOGGER_CHANNEL`.
-- **UPLOADER_BOTS_1**: Manages uploads to `STORAGE_CHANNEL_1`.
+- **MAIN_BOT_TOKEN**: Manages user commands and interactions. Must be admin in **VIDEO_STORAGE** Channel
+- **LOGGER_BOT_TOKEN**: Sends log updates to `LOGGER_CHANNEL`. Must be admin in **LOGGER_CHANNEL** Channel
+- **UPLOADER_BOTS_1**: Manages uploads to `STORAGE_CHANNEL_1`. All of them must be admin in **STORAGE_CHANNEL_1** Channel
 
 ### PlayerX Config
 
@@ -88,8 +88,8 @@ Set all other settings to default.
 
 ### Optional Variables
 
-- **UPLOADER_BOTS_2**: Additional bot tokens for a secondary storage channel.
 - **STORAGE_CHANNEL_2**: Secondary Telegram Channel ID for m3u8 files.
+- **UPLOADER_BOTS_2**: Additional bot tokens for a secondary storage channel. All of them must be admin in **STORAGE_CHANNEL_2** Channel
 - **MAX_ACTIVE_TASKS**: Maximum number of concurrent system tasks.
 - **MAX_USER_CONCURRENT_TASKS**: Maximum concurrent tasks per user.
 - **NO_OF_UPLOADERS**: Number of concurrent uploaders per task.

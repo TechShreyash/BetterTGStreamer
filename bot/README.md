@@ -20,7 +20,7 @@
 - `/remote` - Upload a file from a remote URL for encoding.
 - `/queue` - Check the status of current and queued tasks.
 
-[Read More](./#bot-commands-and-their-functions 
+[Read More](#bot-commands-and-their-functions) 
 
 ## Deployment Guide
 

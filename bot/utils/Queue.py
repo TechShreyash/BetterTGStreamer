@@ -1,4 +1,5 @@
 from pyrogram.types import Message
+from pyrogram.errors import MessageTooLong
 import asyncio
 from utils.Database import is_hash_used
 from utils.Downloader import TG_Downloader
@@ -139,9 +140,21 @@ async def process_video(
             if subtitle_text != "":
                 subtitle_text = f"{subtitle_text}\n\n"
 
-            await message.reply_text(
-                f"⭐️ **M3u8 Url Generated Successfully**\n\n🖥 **Stream Link :** {WEBSITE_DOMAIN}/embed/{hash}/{m3u8}\n\n📁 **M3u8 Link :** {WEBSITE_DOMAIN}/file/{hash}/{m3u8}\n\n{subtitle_text}⚠️ **Note :** If stream link doesnt work, open m3u8 link in VLC Player, MX Player or any other m3u8 supported player."
-            )
+            try:
+                await message.reply_text(
+                    f"⭐️ **M3u8 Url Generated Successfully**\n\n🖥 **Stream Link :** {WEBSITE_DOMAIN}/embed/{hash}/{m3u8}\n\n📁 **M3u8 Link :** {WEBSITE_DOMAIN}/file/{hash}/{m3u8}\n\n{subtitle_text}⚠️ **Note :** If stream link doesnt work, open m3u8 link in VLC Player, MX Player or any other m3u8 supported player."
+                )
+            except MessageTooLong:
+                with open(f"files/{hash}/subtitle_links.txt", "w") as f:
+                    f.write(subtitle_text)
+                message = await message.reply_text(
+                    f"⭐️ **M3u8 Url Generated Successfully**\n\n🖥 **Stream Link :** {WEBSITE_DOMAIN}/embed/{hash}/{m3u8}\n\n📁 **M3u8 Link :** {WEBSITE_DOMAIN}/file/{hash}/{m3u8}\n\n⚠️ **Note :** If stream link doesnt work, open m3u8 link in VLC Player, MX Player or any other m3u8 supported player."
+                )
+                await message.reply_document(
+                    document=f"files/{hash}/{hash}_subtitle_links.txt",
+                    caption="🗒 This file contains subtitle links, which can be externally loaded into your video player.\n\nAlternatively, you can use the stream link to automatically load the subtitles.",
+                )
+
             logger.info(f"M3u8 Url : {WEBSITE_DOMAIN}/file/{hash}/{m3u8}")
 
         elif _type == "encode":

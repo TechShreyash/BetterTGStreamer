@@ -1,30 +1,32 @@
 # Better TG Streamer Bot
 
-**Better TG Streamer Bot** is a Telegram bot that manages the conversion of videos to m3u8 format.
+**Better TG Streamer Bot** is a Telegram bot that facilitates video conversion to the m3u8 format.
 
 **Demo Bot**: [BetterTGStreamerBot](https://telegram.me/BetterTGStreamerBot)
 
 ## Features
 
-- Converts video files to m3u8 format quickly while preserving the original quality, including multiple audio tracks.
-- Encodes video to m3u8 format with options for multiple quality levels, audio tracks, and subtitles using H.264/AAC.
-- Supports uploading files from remote URLs for encoding.
+- Converts video files to m3u8 format quickly while preserving original quality and supporting multiple audio tracks.
+- Offers multi-quality, multi-audio, and subtitle encoding using H.264/AAC.
+- Allows uploads from remote URLs for encoding.
 - Displays the status of current and queued tasks.
 
 ## Commands
 
-- `/start` - Retrieve bot information.
-- `/help` - Instructions on how to use the bot.
-- `/convert` - Convert a video to m3u8 format, maintaining original quality with support for multiple audio tracks.
+- `/start` - Show bot information.
+- `/help` - Provide usage instructions.
+- `/convert` - Convert a video to m3u8 format, maintaining original quality with multiple audio tracks.
 - `/encode` - Encode a video to m3u8 format with multiple quality options, audio tracks, and subtitles.
 - `/remote` - Upload a file from a remote URL for encoding.
-- `/queue` - Check the status of processing and queued tasks.
+- `/queue` - Check the status of current and queued tasks.
+
+[Read More](./#bot-commands-and-their-functions 
 
 ## Deployment Guide
 
-### Pre-requisites
+### Prerequisites
 
-- Ensure Docker is installed on your system.
+- Docker installed on your system.
 
 ### Steps
 
@@ -35,75 +37,85 @@
    docker build -t tgstreamer .
    ```
 4. Run the application:
-
    ```bash
    docker run --name tgstreamer -d tgstreamer
    ```
-
    Monitor your bot’s activity via:
-
    ```bash
    docker logs -f tgstreamer
    ```
 
 ### Deployment Tips
 
-- **Docker**: For deploying on a VPS using Docker, refer to the [Scripts Folder](./scripts).
+- For VPS deployment with Docker, refer to the [Scripts Folder](./scripts).
 
 ## Configuration Variables
 
 ### Required Variables
 
-- **API_ID**: The Telegram API ID necessary for interaction with the Telegram API.
-- **API_HASH**: The Telegram API Hash corresponding to the API_ID, used for authentication.
-- **VIDEO_STORAGE**: Telegram Channel ID where videos are stored.
-- **LOGGER_CHANNEL**: Telegram Channel ID where logs are stored.
-- **STORAGE_CHANNEL_1**: Telegram Channel ID where the m3u8 files for one set of content are stored.
-- **OWNER_ID**: Telegram User ID of the bot owner, used for administrative purposes.
-- **WEBSITE_DOMAIN**: The domain name where the streaming API is hosted, enabling stream management.
-- **MONGO_DB_URL**: Connection string for MongoDB, used for data persistence across bot sessions.
-- **PLAYERX_EMAIL**: Email used for logging into Playerx.stream.
-- **PLAYERX_PASSWORD**: Password for Playerx.stream account.
-- **PLAYERX_API_KEY**: API key for accessing Playerx.stream functionalities.
+- **API_ID**: Telegram API ID for interaction with the Telegram API.
+- **API_HASH**: Telegram API hash corresponding to the API_ID for authentication.
+- **VIDEO_STORAGE**: Telegram Channel ID for video storage.
+- **LOGGER_CHANNEL**: Telegram Channel ID for logging.
+- **STORAGE_CHANNEL_1**: Telegram Channel ID for storing m3u8 files.
+- **OWNER_ID**: Telegram User ID of the bot owner.
+- **WEBSITE_DOMAIN**: Domain name for streaming API hosting.
+- **MONGO_DB_URL**: MongoDB connection string for data persistence.
 
 ### Bot Token Variables
 
-- **MAIN_BOT_TOKEN**: Handles user commands and interactions with the main bot.
-- **LOGGER_BOT_TOKEN**: Sends log updates to the `LOGGER_CHANNEL`.
-- **UPLOADER_BOTS_1**: Manages the upload of m3u8 files to `STORAGE_CHANNEL_1`.
+- **MAIN_BOT_TOKEN**: Manages user commands and interactions.
+- **LOGGER_BOT_TOKEN**: Sends log updates to `LOGGER_CHANNEL`.
+- **UPLOADER_BOTS_1**: Manages uploads to `STORAGE_CHANNEL_1`.
+
+### PlayerX Config
+
+- **PLAYERX_EMAIL**: Playerx.stream account email.
+- **PLAYERX_PASSWORD**: Playerx.stream account password.
+- **PLAYERX_API_KEY**: Playerx.stream API key.
+
+#### PlayerX Settings
+
+- `Player Platform`: `VideoJS`
+- `Auto Import GDrive`: `Enabled`
+- `Multi Audio`: `Enabled`
+- `Label Audio`: `Language`
+- `Label Subtitle`: `Language`
+- `Auto Import Subtitle`: `Enabled`
+- `Encode Hardsub`: `Disabled`
+
+Set all other settings to default.
 
 ### Optional Variables
 
-- **UPLOADER_BOTS_2**: Additional bot tokens used for managing uploads to a secondary storage channel.
-- **STORAGE_CHANNEL_2**: A secondary Telegram Channel ID used for storing additional m3u8 files.
-- **MAX_ACTIVE_TASKS**: The maximum number of tasks that can run simultaneously on the system.
-- **MAX_USER_CONCURRENT_TASKS**: The maximum number of concurrent tasks a single user can initiate.
-- **NO_OF_UPLOADERS**: The number of simultaneous uploaders to use per task for .ts file uploads. This setting determines how many upload threads are executed concurrently, optimizing the speed and efficiency of the upload process.
-- **SEGMENT_SIZE**: Specifies the size, in MB, of each segment uploaded to Telegram, ensuring it does not exceed platform limits.
+- **UPLOADER_BOTS_2**: Additional bot tokens for a secondary storage channel.
+- **STORAGE_CHANNEL_2**: Secondary Telegram Channel ID for m3u8 files.
+- **MAX_ACTIVE_TASKS**: Maximum number of concurrent system tasks.
+- **MAX_USER_CONCURRENT_TASKS**: Maximum concurrent tasks per user.
+- **NO_OF_UPLOADERS**: Number of concurrent uploaders per task.
+- **SEGMENT_SIZE**: Size in MB of each segment uploaded to Telegram.
 
 ## FAQs / Useful Information
 
-**Detailed explanation of the bot commands and how they function**
+### Bot Commands and Their Functions
 
-- **/convert** (replied to a file): When this command is issued, the bot downloads the specified file and uses ffmpeg to convert it into an M3U8 format with the original video and audio tracks. It then uploads the M3U8 and TS files to Telegram, storing the file IDs of each file in MongoDB.
+- **/convert** (replied to a file): The bot downloads the specified file, converts it to m3u8 format using ffmpeg, and uploads the m3u8 and TS files to Telegram, storing the file IDs in MongoDB.
 
-- **/encode** (replied to a file): After downloading the file you reply to, the bot uploads it to PlayerXstream. The PlayerXstream website then encodes the video into multiple qualities, along with handling multiple audio tracks and subtitles in M3U8 format. Once encoding is complete, the bot sends the PlayerXstream video link to the user.
+- **/encode** (replied to a file): The bot uploads the file to PlayerXstream, which encodes the video into multiple qualities with multiple audio tracks and subtitles in m3u8 format. The bot sends the PlayerXstream video link to the user.
 
-- **/remote video_link**: This command allows the bot to add a video link from a remote host directly to PlayerXstream, which then downloads and encodes the video. After encoding, the bot provides the newly encoded video link to the user.
+- **/remote video_link**: The bot adds a video link from a remote host to PlayerXstream, which downloads and encodes the video. The bot provides the encoded video link to the user.
 
-- **/convert playerx_video_link**: For this command, the bot downloads the M3U8, TS, and SRT files from PlayerXstream and uploads them to Telegram, with all corresponding file IDs saved to the database.
+- **/convert playerx_video_link**: The bot downloads the m3u8, TS, and SRT files from PlayerXstream and uploads them to Telegram, saving the file IDs in the database.
 
-- **/queue**: The bot operates on a queue system, adhering to maximum limits for total and per-user tasks (configurable in the settings). The /queue command displays details of the queue status, including the number of tasks queued and currently running, as well as the number of tasks added by the requesting user.
+- **/queue**: The bot operates on a queue system, adhering to maximum limits for total and per-user tasks. The `/queue` command displays the queue status, including the number of tasks queued and running, and the number of tasks added by the user.
 
-**Why are multiple bot tokens added to UPLOADER_BOTS_1 and UPLOADER_BOTS_2?**
+### Using Multiple Bot Tokens
 
-- Utilizing multiple bot tokens helps distribute the workload across various bots, significantly reducing the chances of receiving floodwait errors from Telegram's API. These errors typically occur when a bot tries to upload or download a large number of .ts files within a short period.
+Utilizing multiple bot tokens distributes the workload across various bots, reducing the chances of receiving floodwait errors from Telegram's API when uploading or downloading large numbers of .ts files.
 
-**Why are there two channels, STORAGE_CHANNEL_1 and STORAGE_CHANNEL_2?**
+### Using Two Channels
 
-- Each Telegram channel can have a maximum of 50 admins. If you need to employ more bots to manage uploads, utilizing two channels is necessary. This setup allows you to have up to 100 bots (50 per channel) working simultaneously, enhancing efficiency and capacity.
-
-Additional information will be added as questions arise from users. Contact info given below.
+Each Telegram channel can have a maximum of 50 admins. Utilizing two channels allows up to 100 bots (50 per channel) to work simultaneously, enhancing efficiency.
 
 ## Support Group
 

@@ -99,6 +99,11 @@ Set all other settings to default.
 
 ### Bot Commands and Their Functions
 
+<details>
+  <summary>Click to expand!</summary>
+
+---
+
 - **/convert** (replied to a file): The bot downloads the specified file, converts it to m3u8 format using ffmpeg, and uploads the m3u8 and TS files to Telegram, storing the file IDs in MongoDB.
 
 - **/encode** (replied to a file): The bot uploads the file to PlayerXstream, which encodes the video into multiple qualities with multiple audio tracks and subtitles in m3u8 format. The bot sends the PlayerXstream video link to the user.
@@ -109,15 +114,42 @@ Set all other settings to default.
 
 - **/queue**: The bot operates on a queue system, adhering to maximum limits for total and per-user tasks. The `/queue` command displays the queue status, including the number of tasks queued and running, and the number of tasks added by the user.
 
-### Using Multiple Bot Tokens
+---
+
+</details>
+
+### Why Use Multiple Bot Tokens
+
+<details>
+  <summary>Click to expand!</summary>
+
+---
 
 Utilizing multiple bot tokens distributes the workload across various bots, reducing the chances of receiving floodwait errors from Telegram's API when uploading or downloading large numbers of .ts files.
 
-### Using Two Channels
+---
+
+</details>
+
+### Why Use Two Storage Channels
+
+<details>
+  <summary>Click to expand!</summary>
+
+---
 
 Each Telegram channel can have a maximum of 50 admins. Utilizing two channels allows up to 100 bots (50 per channel) to work simultaneously, enhancing efficiency.
 
+---
+
+</details>
+
 ### How to Fix Video Streaming Slowness or Buffering Issues
+
+<details>
+  <summary>Click to expand!</summary>
+
+---
 
 #### Issue 1: Large TS File Sizes
 
@@ -133,7 +165,18 @@ Each Telegram channel can have a maximum of 50 admins. Utilizing two channels al
 
 **Solution:** A practical approach to mitigate these problems is to increase the number of bots in operation. This spreads out the workload and reduces the likelihood of hitting usage limits, thereby improving streaming performance.
 
-### How to Utilize More Than 100 Bots in BetterTGStreamer
+Read Further : [Using More Than 100 Bots in BetterTGStreamer](#how-to-utilize-more-than-100-bots-in-bettertgstreamer)
+
+---
+
+</details>
+
+### Using More Than 100 Bots in BetterTGStreamer
+
+<details>
+  <summary>Click to expand!</summary>
+
+---
 
 If you're experiencing high traffic for video streaming or need faster file conversion and uploads, increasing the number of bots can significantly reduce load times. The current setup allows for two channels, with a maximum of 100 bots distributed between them. To exceed this limit, you will need to add more channels, with each channel supporting up to 50 bots. Here’s how you can modify your code to accommodate this:
 
@@ -171,6 +214,10 @@ If you're experiencing high traffic for video streaming or need faster file conv
   ```
 
 **Note:** To add additional bots and channels, replicate the steps above by incrementing the channel number (e.g., `STORAGE_CHANNEL_4`, `UPLOADER_BOTS_4`, etc.). There is no upper limit to the number of bots you can integrate; the code is designed to accommodate scalability.
+
+---
+
+</details>
 
 ## Support Group
 

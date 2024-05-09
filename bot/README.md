@@ -20,7 +20,7 @@
 - `/remote` - Upload a file from a remote URL for encoding.
 - `/queue` - Check the status of current and queued tasks.
 
-[Read More](#bot-commands-and-their-functions) 
+[Read More](#bot-commands-and-their-functions)
 
 ## Deployment Guide
 
@@ -116,6 +116,22 @@ Utilizing multiple bot tokens distributes the workload across various bots, redu
 ### Using Two Channels
 
 Each Telegram channel can have a maximum of 50 admins. Utilizing two channels allows up to 100 bots (50 per channel) to work simultaneously, enhancing efficiency.
+
+### How to Fix Video Streaming Slowness or Buffering Issues
+
+#### Issue 1: Large TS File Sizes
+
+**Cause:** The TS files being streamed are too large.
+
+**Solution:** Instead of using the `/convert` command, opt for `/encode` or `/remote`. These commands handle file sizes more efficiently. For additional details on how these commands work, refer to [Bot Commands and Their Functions](#bot-commands-and-their-functions). If you must use the `/convert` command, consider reducing the `SEGMENT_SIZE` variable to decrease file size.
+
+**Note:** Even with these adjustments, streaming in 1080p may still encounter issues due to the inherent large size and high bitrate of such files.
+
+#### Issue 2: Bot Overload
+
+**Cause:** The bot may be engaged in multiple tasks simultaneously—such as uploading or downloading other files—or it might be hitting Telegram's floodwait limits.
+
+**Solution:** A practical approach to mitigate these problems is to increase the number of bots in operation. This spreads out the workload and reduces the likelihood of hitting usage limits, thereby improving streaming performance.
 
 ## Support Group
 

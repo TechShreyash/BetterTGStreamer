@@ -133,6 +133,45 @@ Each Telegram channel can have a maximum of 50 admins. Utilizing two channels al
 
 **Solution:** A practical approach to mitigate these problems is to increase the number of bots in operation. This spreads out the workload and reduces the likelihood of hitting usage limits, thereby improving streaming performance.
 
+### How to Utilize More Than 100 Bots in BetterTGStreamer
+
+If you're experiencing high traffic for video streaming or need faster file conversion and uploads, increasing the number of bots can significantly reduce load times. The current setup allows for two channels, with a maximum of 100 bots distributed between them. To exceed this limit, you will need to add more channels, with each channel supporting up to 50 bots. Here’s how you can modify your code to accommodate this:
+
+#### Expanding Capacity by Adding More Storage Channels and Bots
+
+**Step 1: Update Configuration**
+
+- Open `Config.py` and introduce new variables for additional channels and bot lists. For example:
+  ```python
+  STORAGE_CHANNEL_3 = 'your_new_telegram_channel_id'
+  UPLOADER_BOTS_3 = ['list_of_bot_tokens']  # Ensure these bots are admins in STORAGE_CHANNEL_3
+  ```
+- Follow the same format used for `STORAGE_CHANNEL_1`, `STORAGE_CHANNEL_2`, `UPLOADER_BOTS_1`, and `UPLOADER_BOTS_2`.
+
+**Step 2: Modify Client Initialization**
+
+- In `Client.py`, import the new variables, such as `UPLOADER_BOTS_3`.
+- Update the `start_clients` function to include the new bots:
+  ```python
+  for token in UPLOADER_BOTS_3:
+      pos += 1
+      UPLOADER_CLIENTS[pos] = {
+          "usage": 0,
+          "token": token + "%*^3",
+      }
+  ```
+
+**Step 3: Adapt File Uploading Logic**
+
+- In `Uploader.py`, import `STORAGE_CHANNEL_3`.
+- Modify the `send_file` function to direct files to the correct channel:
+  ```python
+  elif int(channel) == 3:
+      data["chat_id"] = str(STORAGE_CHANNEL_3)
+  ```
+
+**Note:** To add additional bots and channels, replicate the steps above by incrementing the channel number (e.g., `STORAGE_CHANNEL_4`, `UPLOADER_BOTS_4`, etc.). There is no upper limit to the number of bots you can integrate; the code is designed to accommodate scalability.
+
 ## Support Group
 
 For inquiries or support, join our [Telegram Support Group](https://telegram.me/TechZBots_Support) or email [techshreyash123@gmail.com](mailto:techshreyash123@gmail.com).

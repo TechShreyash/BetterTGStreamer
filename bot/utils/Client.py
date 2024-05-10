@@ -5,6 +5,7 @@ from config import (
     UPLOADER_BOTS_1,
     UPLOADER_BOTS_2,
     LOGGER_BOT_TOKEN,
+    OWNER_ID,
 )
 from pyrogram import Client
 from utils.Logger import Logger
@@ -37,7 +38,9 @@ def get_least_used_token_and_channel() -> Client:
 
 
 async def remove_client(token):
-    await app.send_message("TechShreyash", f"Token Error : {token} ")
+    await app.send_message(
+        OWNER_ID, f"Error While Uploading Using Bot Token : {token} "
+    )
 
 
 async def start_clients():

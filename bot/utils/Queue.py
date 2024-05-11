@@ -100,7 +100,7 @@ async def process_video(
                 elif mime_type != "video/x-matroska":
                     extension = "mkv"
 
-            create_directory(hash)
+        create_directory(hash)
 
         logger.info(f"Processing... {hash}")
         try:

@@ -145,7 +145,7 @@ async def process_video(
                     f"⭐️ **M3u8 Url Generated Successfully**\n\n🖥 **Stream Link :** {WEBSITE_DOMAIN}/embed/{hash}/{m3u8}\n\n📁 **M3u8 Link :** {WEBSITE_DOMAIN}/file/{hash}/{m3u8}\n\n{subtitle_text}⚠️ **Note :** If stream link doesnt work, open m3u8 link in VLC Player, MX Player or any other m3u8 supported player."
                 )
             except MessageTooLong:
-                with open(f"files/{hash}/subtitle_links.txt", "w") as f:
+                with open(f"files/{hash}/{hash}_subtitle_links.txt", "w") as f:
                     f.write(subtitle_text)
                 message = await message.reply_text(
                     f"⭐️ **M3u8 Url Generated Successfully**\n\n🖥 **Stream Link :** {WEBSITE_DOMAIN}/embed/{hash}/{m3u8}\n\n📁 **M3u8 Link :** {WEBSITE_DOMAIN}/file/{hash}/{m3u8}\n\n⚠️ **Note :** If stream link doesnt work, open m3u8 link in VLC Player, MX Player or any other m3u8 supported player."

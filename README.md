@@ -5,6 +5,8 @@ Enhance your streaming experience with the Better TG Streamer Bot. This powerful
 **Demo Bot**: [BetterTGStreamerBot](https://telegram.me/BetterTGStreamerBot)  
 **Demo Video**: [Sample Streaming Video](https://stream.techzbots.co/embed/YZMPAIQBJX/master_c2.m3u8)
 
+<img src="https://stats.techzbots.co/api/views_badge?page=https%3A%2F%2Fgithub.com%2FTechShreyash%2FBetterTGStreamer&color1=1b324e&color2=ff681c&label=Total%20Repo%20Views" alt="Total Repo Views">
+
 ### Deploying Your Own
 
 To utilize this project effectively, you will need to deploy three separate applications that work together to handle different aspects of the streaming service:
